@@ -2,26 +2,46 @@ const Express = require('express');
 
 const Aplicativo = new Express();
 
-// Configurações
-// Converte os valores de retorno do servidor para JSON.
-Aplicativo.use(Express.json()); 
-// converte os valores recebidos no formulário de application/x-www-form-urlencoded para JSON.
-Aplicativo.use(Express.urlencoded({ extended: true })); 
+const Model = [
 
-function Autenticar(client, servidor) {
+    {
+        id: 1,
+        nome: "Danilo"
 
-    // Separação dos campos
-    const { email, senha } = cliente.body;
+    },
+    {
+        id: 2,
+        nome: "Marisa"
 
-    // Retorno o JSON dos dados capturados
-    servidor.json({ email, senha });
+    },
+    {
+        id: 3,
+        nome: "Alessandra"
+
+    }
+
+]
+//controlador API
+function Controlador(cliente, servidor) {
+    servidor.json(Model);
+}
+
+
+//controlador
+function Controlador(cliente, servidor) {
+    servidor.send('Controller principal');
+        
+}
+//controlador View
+function ControladorView(cliente, servidor) {
+    servidor.sendFile(__dirname + '/Home.html');
 }
 
 // Rotas
-Aplicativo.get('/autenticar', (cliente, servidor) => {
-    servidor.sendFile(`${__dirname}/views/Autenticar.html`);
-});
+Aplicativo.get('/api', Controlador);
 
-Aplicativo.post('/api/autenticar', Autenticar);
+Aplicativo.get('/view', ControladorView);
 
-Aplicativo.listen(5678);
+Aplicativo.listen(5678, () => console.log("servidor rosando!"));
+
+
